@@ -1,11 +1,9 @@
 autoscale: true
 build-lists: true
 slidenumbers: true
-footer: Pete Inge | Bluecadet | 5 min sites
+footer: Pete Inge | Bluecadet | Drupal (And Maybe Wordpress) Site Content with Airtable
 
-# Five Minute Drupal Site
-
-## Speeding up our Drupal Dev Time
+# Drupal (And Maybe Wordpress) Site Content with Airtable
 
 ^ * Be the Story Teller
 * Breathe

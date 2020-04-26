@@ -2,6 +2,7 @@ autoscale: true
 build-lists: true
 slidenumbers: true
 footer: Pete Inge | Bluecadet | Drupal (And Maybe Wordpress) Site Content with Airtable
+theme: Work, 6
 
 # Drupal (And Maybe Wordpress) Site Content with Airtable
 
@@ -43,6 +44,7 @@ Contact for more info
 
 - “Site Builders”
 - Moderate to Advanced Coders
+- Content Creators
 
 ---
 
@@ -59,7 +61,7 @@ Contact for more info
 
 ---
 
-# What's the problem?
+# Why do we want to use Airtable?
 
 - Content is typically developed / changed / altered in tandem with development
 - Content in design is either "ideal" or Lorem Ipsum
@@ -69,7 +71,8 @@ Contact for more info
 
 ---
 
-# What's the problem? - Typical approach
+# Why do we want to use Airtable?
+## Typical content approach
 
 - develop, develop, develop
 - internal CMS review on minimal content
@@ -81,7 +84,8 @@ Contact for more info
 ---
 [.build-lists: false]
 
-# What's the problem? - Typical approach
+# Why do we want to use Airtable?
+## Typical content approach
 
 - develop, develop, develop
 - internal CMS review on minimal content
@@ -92,8 +96,17 @@ Contact for more info
 - LAUNCH! :rocket:
 
 ---
+[.build-lists: false]
 
-# What would we like?
+# Why do we want to use Airtable?
+## Typical content approach
+
+![inline](media/content-tracks-001.jpg)
+
+---
+
+# Why do we want to use Airtable?
+## Hopefully better approach
 
 - We want content development to start as early as possible
   - Use tools like spreadsheets, Airtable or Gather Content
@@ -103,18 +116,29 @@ Contact for more info
 ^ Websites as well as Headless projects.
 
 ---
+[.build-lists: false]
+
+# Why do we want to use Airtable?
+## Hopefully better approach
+
+![inline](media/content-tracks-002.jpg)
+
+^ In order to do this however, we need to start developing our content outside of the CMS...
+
+---
 
 # Content
+## Let's Talk Content
+![right](https://media.giphy.com/media/3Kp6sZlMqxphC/giphy.gif)
 
-(brief) Explanation of our content issues...
+- Usually design with Perfect content OR Lorem Ipsum.
+- 1000's of Word docs and crazy spreadsheets
 
-intro our use of spreadsheets, Gather content & airtable
+^ Obviously, if we are working on a project, most projects we need to bring together content to be displayed. When a project goes through design phase we're typically using "Ideal content" or Lorem Ipsum content. I have never been on a project that has not had issues with content after we build. Whether certain words are too short/long. @ paragraphs or 60... Content is rarely IDEAL.
 
-decide to tackle NAB project with airtable
+^ intro our use of spreadsheets, Gather content & airtable
 
-(image of Content and development tracks merging before launch)
-
-^ Obviously, if we are working on a project, most projects we need to bring together content to be displayed. When a project goes through design phase we're typically using "Ideal content" or Lorem Ipsum content. And I have never been on a project that has not had issues with content after we build. Whether certain words are too short/long. @ paragraphs or 60... Content is rarely IDEAL.
+^ decide to tackle NAB project with airtable
 
 ---
 
@@ -122,18 +146,15 @@ decide to tackle NAB project with airtable
 
 - Touchwall of Honorees
 - Headless Drupal 8 site
-- Minimal Content
-- (Internally) Healthy timeline
-
-^ We had plenty of time to work on this project. We wanted to use this to work on some internal goals.
-
----
-
-# NAB - data
-
+- Minimal/Simple Content
+  - BUT we are using paragraphs for the main narrative content
+- (Internally) Healthy development timeline
 - Two content types
   - One would be developed in the CMS only
-- Very flat data
+- Flat data
+- (Internally) Healthy development timeline
+
+^ We had plenty of time to work on this project. We wanted to use this to work on some internal goals.
 
 ^ So we decided with this project to use Airtable for our content needs. And then it came down to me to sync that content into Drupal.
 
@@ -142,11 +163,222 @@ decide to tackle NAB project with airtable
 # How to Sync?
 
 - Contrib Modules... ?? 🤔
+  - [Drupal 8 Mod: Airtable ](https://www.drupal.org/project/airtable)
 - APIs to the rescue
   - Airtable API
   - Drupal Batch API
 
-explain code...
+^ Module has no official release. Syncs 1:1 flat table to fields.
+
+---
+
+# How to Sync?
+## Overview
+
+- We want content to originate in Airtable and update (overwrite) content in the CMS
+- We want a "push button" sync solution
+- We need to handle Paragraphs and re-ordering
+- We need to handle media: Images, Video, Audio
+
+---
+
+# How to Sync?
+## Deep Dive
+
+![right autoplay loop mute 23%](media/sync.mov)
+
+Batch API
+
+> "Batches allow heavy processing to be spread out over several page requests, ensuring that the processing does not get interrupted because of a PHP timeout, while allowing the user to receive feedback on the progress of the ongoing operations. It also can reduce out of memory situations."
+- Drupal.org
+
+^ So lets look at some code =>
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+We start with a form:
+
+``` PHP
+class AtConnContent extends FormBase {
+  ...
+  public function submitForm(array &$form, FormStateInterface $form_state) {
+    $batch = [
+      'title' => $this->t('Syncing Content'),
+      'operations' => [
+        [[$this, 'initiateAirtableData'], []],
+        [[$this, 'processAirtableData'], []],
+        [[$this, 'syncAirtableData'], []]
+      ],
+      'finished' => [$this, 'finishedBatchSync'],
+    ];
+
+    batch_set($batch);
+  }
+
+}
+```
+
+^ explain batch operations and finished
+
+^ we can save data through these operations.
+
+^ initiateAirtableData: paging throught the calls to the Airtable API to collect all my data.
+
+^ processAirtableData: looping through all my records, and getting data from linked tables from Airtable's API.
+
+^ syncAirtableData: Finally updating content in Drupal.
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+`syncNode()` is The method to actually sync.
+
+``` PHP
+
+  /**
+   * Sync local node with data from Airtable.
+   */
+  private function syncNode($data) {
+    ...
+  }
+
+```
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` PHP
+
+  private function syncNode($data) {
+
+    // First Check if we have an existing node.
+    $query = $this->entityQuery->get('node');
+    $query->condition('type', 'inductee');
+    $query->condition('field_sync_id', $data->id);
+    $entity_ids = $query->execute();
+    ...
+  }
+
+```
+
+^ First thing is we need to see if we already have a node for this record.
+
+^ We use a simple text field to save an ID. We get ids from Airtable, so we just use that value.
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` PHP
+  private function syncNode($data) {
+    ...
+    // Create new node if it doesn't exists.
+    if (empty($entity_ids)) {
+      $node = Node::create([
+        'type' => 'inductee',
+        'status' => TRUE,
+      ]);
+    }
+    else {
+      $node_storage = $this->entityTypeManager->getStorage('node');
+      $node = $node_storage->load(current($entity_ids));
+
+      $node->setNewRevision(TRUE);
+      $node->revision_log = 'Updating content from Airtable.';
+      $node->setRevisionCreationTime(REQUEST_TIME);
+      $node->setRevisionUserId(1);
+    }
+    ...
+  }
+```
+
+^ We create a new node or load the exisitng node.
+
+^ Something to note here is, I like to make revisions. All the time! There are modules out there to clean up revisions, and I would recommend them, but I like making revisions.
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` PHP
+  private function syncNode($data) {
+    ...
+    $node->set('title', strip_tags($data->Name[0]->Name));
+    $node->set('field_sync_id', $data->id);
+    $node->set('field_name', preg_replace("/\s*\r\n\s*|\s*\r\s*|\s*\n\s*/",
+      '<br/>', trim($data->Name[0]->{"Story Display Name"})));
+    $node->set('field_plain_name', $data->Name[0]->Name);
+    ...
+  }
+```
+
+^ And most fields we can simply save to the fields. Here we are doing preg replace for line breaks and replaceing them with `<br>` tags
+
+^ So how do we handle media =>
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+Files: Images, Audio, Video
+
+``` PHP
+  // Media object found or created.
+  ...
+  // Save actual image.
+  $target_dir = 'public://media';
+  $this->fileSystem->prepareDirectory($target_dir, FileSystemInterface::CREATE_DIRECTORY);
+
+  $new_filename = bcu_transliterate_filenames_transliteration($illustration_data->filename);
+  $target_dir .= "/" . $new_filename;
+  $drupal_image = system_retrieve_file($illustration_data->url, $target_dir, TRUE, FILE_EXISTS_RENAME);
+
+  if ($drupal_image) {
+    $media->set('field_media_image', [
+      'target_id' => $drupal_image->id(),
+      'alt' => '',
+    ]);
+  }
+  ...
+```
+
+^ Much like we did with the node we look for a media entity or we create one. I didn't include that code, b/c its pretty much the same.
+
+^ system_retrieve_file($url, $destination = NULL, $managed = FALSE, $replace = FILE_EXISTS_RENAME)
+
+---
+
+# How to Sync?
+## Deep Dive: Paragraph Bundles
+
+![right 35%](media/detail.png)
+
+- Detail narrative includes diffrent paragrpah elements
+- We had fairly simple limits for this project
+- Airtable does not easily handle ordering of Paragraph bundles
+- Our process was to sync content but keep ordering saved in the CMS
+
+
+---
+
+
+
+
+
+
+
+
+
+
+^ explain code...
 how we handled paragraphs
 
 ---
@@ -165,8 +397,29 @@ How this helped with this project
 
 Some gotchas and help stuff
 
+- line breaks
+- making revisions
+- airtable has bad keys...
 
+---
 
+#Thanks!
+
+###Questions?<br><br>Comments?<br><br>Discussion?
+
+---
+
+#Bluecadet
+
+![right](media/bc_workspace.jpg)
+![left](media/bluecadet-nasm-website.jpg)
+
+---
+
+https://github.com/pingevt/drupal-react-widgets
+https://api.drupal.org/api/examples/batch_example%21batch_example.module/group/batch_example/8.x-1.x
+
+---
 
 
 

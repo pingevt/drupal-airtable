@@ -101,7 +101,7 @@ Contact for more info
 # Why do we want to use Airtable?
 ## Typical content approach
 
-![inline](media/content-tracks-001.jpg)
+![inline](media/content-tracks-001-trans.png)
 
 ---
 
@@ -121,7 +121,7 @@ Contact for more info
 # Why do we want to use Airtable?
 ## Hopefully better approach
 
-![inline](media/content-tracks-002.jpg)
+![inline](media/content-tracks-002-trans.png)
 
 ^ In order to do this however, we need to start developing our content outside of the CMS...
 
@@ -330,7 +330,7 @@ class AtConnContent extends FormBase {
 
 Files: Images, Audio, Video
 
-``` PHP
+``` php
   // Media object found or created.
   ...
   // Save actual image.
@@ -364,8 +364,155 @@ Files: Images, Audio, Video
 - Detail narrative includes diffrent paragrpah elements
 - We had fairly simple limits for this project
 - Airtable does not easily handle ordering of Paragraph bundles
+- I personally added the ability to add Paragrpahs, that won't get effected by the sync
 - Our process was to sync content but keep ordering saved in the CMS
 
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` php
+
+  private function syncNode($data) {
+    ...
+    $new_segment_data = [];
+
+    $this->handleQuoteText($data, $node, $new_segment_data);
+    $this->handleDescriptiveText($data, $node, $new_segment_data);
+    $this->handleMedia($data, $node, $new_segment_data);
+
+    $this->handleSegmentBundles($node, $new_segment_data);
+    ...
+  }
+
+```
+
+^ Save data to create paragraphs.
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` php
+  // Example object.
+  $new_segment_data[$sync_id] = [
+    'type' => 'quote',
+    'field_sync_id' => $sync_id,
+    'field_text' => $data->Name[0]->{$field_name},
+    'field_attribution' => $data->Name[0]->{'Attribution'},
+  ];
+```
+
+^ Save data to create paragraphs. We have the field values, but not the paragraph entity.
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` php
+  private function handleSegmentBundles(&$node, $new_segment_data) {
+    $current_bundles = $node->field_segments->referencedEntities();
+    $new_bundles = [];
+
+    ...
+  }
+
+```
+
+^ Now process paragrpahs...
+
+^ Grab current paragrpahs... and we now have two arrays of data, Current Bundles, and array of new data.
+And a third which will be our new field values...
+Current Bundles we pull from the node.
+new data is passed into the function.
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` php
+  private function handleSegmentBundles(&$node, $new_segment_data) {
+    ...
+    foreach ($current_bundles as $c_bundle) {
+      // Update bundle if it exists.
+      ...
+
+      $new_bundles[] = [
+        'target_id' => $c_bundle->id(),
+        'target_revision_id' => $c_bundle->getRevisionId(),
+      ];
+    }
+
+  }
+
+```
+
+^ Now process paragrpahs...
+
+^ Grab current paragrpahs... and we now have two arrays of data, Current Bundles, and array of new data.
+And a third which will be our new field values...
+Current Bundles we pull from the node.
+new data is passed into the function.
+
+^ We loop through Current bundles and update... and remove from the new data array.
+
+^ Once this is done, we have
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` php
+  private function handleSegmentBundles(&$node, $new_segment_data) {
+    ...
+    foreach ($current_bundles as $c_bundle) {
+      ...
+    }
+
+    // Add new segments at end of list.
+    foreach ($new_segment_data as $nsd) {
+      // Add new segment para.
+      $para = Paragraph::create($nsd);
+      $para->save();
+
+      $new_bundles[] = [
+        'target_id' => $para->id(),
+        'target_revision_id' => $para->getRevisionId(),
+      ];
+    }
+
+  }
+
+```
+
+---
+
+# How to Sync?
+## Deep Dive: Code
+
+``` php
+  private function handleSegmentBundles(&$node, $new_segment_data) {
+    ...
+    foreach ($current_bundles as $c_bundle) {
+      ...
+    }
+
+    foreach ($new_segment_data as $nsd) {
+      ...
+    }
+
+    // Save new field values.
+    $node->set('field_segments', $new_bundles);
+  }
+
+```
+
+---
 
 ---
 

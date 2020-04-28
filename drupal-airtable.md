@@ -19,7 +19,7 @@ theme: Work, 6
 pinge@bluecadet.com
 https://github.com/pingevt/drupal-airtable
 
-![right 78%](media/logo.gif)
+![right 85%](media/logo.gif)
 
 ^ Experience: ~10yrs freelance in web dev
 Worked in D5-D8

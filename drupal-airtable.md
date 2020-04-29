@@ -9,7 +9,7 @@ theme: Work, 6
 ^ * Be the Story Teller
 * Breathe
 
----
+___
 
 # Who am I?
 
@@ -27,7 +27,7 @@ Current: @ BC for 4.5 years
 I'm a problem solver
 Contact for more info
 
----
+___
 
 #Bluecadet
 ![fit](media/bc.jpg)
@@ -36,14 +36,14 @@ Contact for more info
 
 ^ Bluecadet is an experience design agency. We partner with mission-driven organizations to create a broad suite of products and environments. We embrace design, technology, and innovation in the service of content, emotion, and experience. We create experiences that engage audiences through increased knowledge, empathy, and action.
 
-^ We don't consider ourselves a Drupal shop. We do want to use the right tool for the right job. That said, we do use Drupal, and the "other" CMS for most of our BE needs. We are slated this year to really epxplore other CMSs, but my gut is telling our websites will stay inthe Drupal sphere for quite awhile.
+^ We don't consider ourselves a Drupal shop. We do want to use the right tool for the right job. That said, we do use Drupal, and the "other" CMS for most of our BE needs. We are slated this year to really explore other CMSs, but my gut is telling our websites will stay in the Drupal sphere for quite awhile.
 
----
+___
 [.build-lists: false]
 
 # Who is this for?
 
-- “Site Builders”
+- "Site Builders"
 - Moderate to Advanced Coders
 - Content Creators
 - Anyone concerned with content
@@ -52,7 +52,7 @@ Contact for more info
 
 ^ => So lets get started... What is Airtable?
 
----
+___
 
 # What is Airtable?
 
@@ -64,13 +64,38 @@ Contact for more info
 
 ^ First, lets do a quick introduction to Airtable...
 
-^ onine collaboration
+^ online collaboration
 
 ^ I am not an Airtable expert by any means...
 
-^ => Why should we care about our content develpment?
+^ Not meant to be permanent.
 
----
+^ => Why should we care about our content development?
+
+___
+[.build-lists: false]
+# What is Airtable?
+
+- "Organize anything, with anyone, from anywhere"
+  - Online collaboration
+- Spreadsheets on steroids
+
+<br><br><br>
+Let's take a look =>
+
+![right](media/airtable-001.png)
+
+^ First, lets do a quick introduction to Airtable...
+
+^ online collaboration
+
+^ I am not an Airtable expert by any means...
+
+^ Not meant to be permanent.
+
+^ => Why should we care about our content development?
+
+___
 [.build-lists: false]
 # Why should we care about content development?
 
@@ -78,7 +103,7 @@ Contact for more info
 
 - Content is typically developed / changed / altered in tandem with development
 - In design, content is either _ideal_ or _Lorem Ipsum_
-- Web is typiclaly flexible, but other types of projects might not be (kiosks, etc)
+- Web is typically flexible, but other types of projects might not be (kiosks, etc)
 
 ^ Ideal meaning perfect character counts, etc.
 
@@ -86,7 +111,7 @@ Contact for more info
 
 ^ => Lets take a look at two approaches to content
 
----
+___
 
 # Why should we care about content development?
 ## Typical content approach
@@ -100,7 +125,7 @@ Contact for more info
 
 ^ => GO
 
----
+___
 [.build-lists: false]
 
 # Why should we care about content development?
@@ -116,18 +141,18 @@ Contact for more info
 
 ^ => Lets look at this visually
 
----
+___
 
 # Why should we care about content development?
 ## Typical content approach
 
-![inline](media/content-tracks-001-trans.png)
+![inline 80%](media/content-tracks-001-trans.png)
 
 ^ To visualize this...
 
-^ Content development is completely seperate or worse starts at this point and finally enters close to LAUNCH or deadline.
+^ Content development is completely separate or worse starts at this point and finally enters close to LAUNCH or deadline.
 
----
+___
 
 # Why should we care about content development?
 ## What we want in a better approach
@@ -139,29 +164,29 @@ Contact for more info
 
 ^ Websites as well as Headless projects.
 
----
+___
 [.build-lists: false]
 
 # Why should we care about content development?
 ## What we want in a better approach
 
-![inline](media/content-tracks-002-trans.png)
+![inline 80%](media/content-tracks-002-trans.png)
 
 ^ In order to do this however, we need to start developing our content outside of the CMS... and merge it in when we can. Just like we do with code and features.
 
 ^ => Lets intro NAB
 
----
+___
 
 # National Association of Broadcasters (NAB)
 
 ![right] (media/dev-wall.jpg)
 
-- Touchwall of Honorees
+- Touch wall of Honorees
 - Headless Drupal 8 site
 - Minimal/Simple Content
 
----
+___
 
 # National Association of Broadcasters (NAB)
 
@@ -171,7 +196,7 @@ Contact for more info
   - One would be developed in the CMS only
 - Flat data
 - Using paragraphs for the main narrative content
-- (Internally) Healthy development timeline for the CMS
+- (Internally) Healthy development time-line for the CMS
 
 ^ We had plenty of time to work on this project. We wanted to use this to work on some internal goals.
 
@@ -179,7 +204,7 @@ Contact for more info
 
 ^ => Quick peak at our airtable
 
----
+___
 
 # NAB: Airtable
 
@@ -192,7 +217,7 @@ Contact for more info
 
 ^ => So how do we start syncing this
 
----
+___
 
 # How to Sync?
 ## Planning: assets
@@ -207,10 +232,10 @@ Contact for more info
 
 ^ => Lets look at constraints...
 
----
+___
 
 # How to Sync?
-## Planning: constriants
+## Planning: constraints
 
 - We want content to originate in Airtable and update (overwrite) content in the CMS
   - Not nuke and rebuild
@@ -223,7 +248,14 @@ Contact for more info
 
 ^ => lets dive into the code.
 
----
+___
+[.footer: ]
+
+![original](media/api_response.png)
+
+^ Airtable API response object from Postman.
+
+___
 
 # How to Sync?
 ## Deep Dive
@@ -237,7 +269,20 @@ Batch API
 
 ^ So lets look at some code =>
 
----
+___
+
+# How to Sync?
+## Deep Dive: Code
+
+![original 76% inline](media/sync-cycle.png)
+
+^ Reuse this process for everything...
+
+^ If we were doing 2-way sync we would need to delete content not in this dataset.
+
+^ => We need to setup our loop to do this. Lets take a look.
+
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -268,13 +313,13 @@ class AtConnContent extends FormBase {
 
 ^ we can save data through these operations.
 
-^ initiateAirtableData: paging throught the calls to the Airtable API to collect all my data.
+^ initiateAirtableData: paging through the calls to the Airtable API to collect all my data.
 
 ^ processAirtableData: looping through all my records, and getting data from linked tables from Airtable's API.
 
 ^ syncAirtableData: Finally updating content in Drupal.
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -291,7 +336,7 @@ class AtConnContent extends FormBase {
 
 ```
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -314,7 +359,7 @@ class AtConnContent extends FormBase {
 
 ^ We use a simple text field to save an ID. We get ids from Airtable, so we just use that value.
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -346,7 +391,7 @@ class AtConnContent extends FormBase {
 
 ^ Something to note here is, I like to make revisions. All the time! There are modules out there to clean up revisions, and I would recommend them, but I like making revisions.
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -367,7 +412,7 @@ class AtConnContent extends FormBase {
 
 ^ => So how do we handle media
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -400,7 +445,7 @@ Files: Images, Audio, Video
 
 ^ => Let's get into the Paragraph bundles...
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Paragraph Bundles
@@ -413,7 +458,7 @@ Files: Images, Audio, Video
 - I personally added the ability to add Paragrpahs, that won't get effected by the sync
 - Our process was to sync content but keep ordering saved in the CMS
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -436,7 +481,7 @@ Files: Images, Audio, Video
 
 ^ Save data to create paragraphs.
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -453,7 +498,7 @@ Files: Images, Audio, Video
 
 ^ Save data to create paragraphs. We have the field values, but not the paragraph entity.
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -475,7 +520,7 @@ And a third which will be our new field values...
 Current Bundles we pull from the node.
 new data is passed into the function.
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -509,7 +554,7 @@ new data is passed into the function.
 
 ^ Once this is done, we have
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -537,7 +582,7 @@ new data is passed into the function.
 
 ```
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -561,7 +606,7 @@ new data is passed into the function.
 
 ^ => Lets recap one more time.
 
----
+___
 
 # How to Sync?
 ## Deep Dive: Code
@@ -578,7 +623,7 @@ new data is passed into the function.
 
 ^ => How does this help with Content
 
----
+___
 
 # How this helps with content entry
 
@@ -592,7 +637,7 @@ new data is passed into the function.
 
 ^ => How does this help with DEV
 
----
+___
 
 # How this helped with development
 
@@ -604,7 +649,7 @@ new data is passed into the function.
 
 ^ developing in cinder.
 
----
+___
 
 # Some gotchas and help stuff
 
@@ -613,22 +658,22 @@ new data is passed into the function.
 - Airtable has bad keys...
 - Making revisions
 
----
+___
 
 #Thanks!
 
 ###Questions?<br><br>Comments?<br><br>Discussion?
 
----
+___
 
 #Bluecadet
 
 ![right](media/bc_workspace.jpg)
 ![left](media/bluecadet-nasm-website.jpg)
 
----
+___
 
 https://github.com/pingevt/drupal-react-widgets
 https://api.drupal.org/api/examples/batch\_example%21batch\_example.module/group/batch_example/8.x-1.x
 
----
+___

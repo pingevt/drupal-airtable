@@ -57,7 +57,7 @@ ___
 # What is Airtable?
 
 - "Organize anything, with anyone, from anywhere"
-  - Online collaboration
+  - On-line collaboration
 - Spreadsheets on steroids
 
 ![right](media/airtable-001.png)
@@ -77,7 +77,7 @@ ___
 # What is Airtable?
 
 - "Organize anything, with anyone, from anywhere"
-  - Online collaboration
+  - On-line collaboration
 - Spreadsheets on steroids
 
 <br><br><br>
@@ -387,7 +387,7 @@ ___
   }
 ```
 
-^ We create a new node or load the exisitng node.
+^ We create a new node or load the existing node.
 
 ^ Something to note here is, I like to make revisions. All the time! There are modules out there to clean up revisions, and I would recommend them, but I like making revisions.
 
@@ -408,7 +408,7 @@ ___
   }
 ```
 
-^ And most fields we can simply save to the fields. Here we are doing preg replace for line breaks and replaceing them with `<br>` tags
+^ And most fields we can simply save to the fields. Here we are doing preg replace for line breaks and replacing them with `<br>` tags
 
 ^ => So how do we handle media
 
@@ -455,7 +455,7 @@ ___
 - Detail narrative includes different paragraph elements
 - We had fairly simple limits for this project
 - Airtable does not easily handle ordering of Paragraph bundles
-- I personally added the ability to add Paragrpahs, that won't get effected by the sync
+- I personally added the ability to add Paragraphs, that won't get effected by the sync
 - Our process was to sync content but keep ordering saved in the CMS
 
 ___
@@ -513,9 +513,9 @@ ___
 
 ```
 
-^ Now process paragrpahs...
+^ Now process paragraphs...
 
-^ Grab current paragrpahs... and we now have two arrays of data, Current Bundles, and array of new data.
+^ Grab current paragraphs... and we now have two arrays of data, Current Bundles, and array of new data.
 And a third which will be our new field values...
 Current Bundles we pull from the node.
 new data is passed into the function.
@@ -543,9 +543,9 @@ ___
 
 ```
 
-^ Now process paragrpahs...
+^ Now process paragraphs...
 
-^ Grab current paragrpahs... and we now have two arrays of data, Current Bundles, and array of new data.
+^ Grab current paragraphs... and we now have two arrays of data, Current Bundles, and array of new data.
 And a third which will be our new field values...
 Current Bundles we pull from the node.
 new data is passed into the function.
@@ -611,7 +611,7 @@ ___
 # How to Sync?
 ## Deep Dive: Code
 
-- Loop through current bundles and update if neccissary
+- Loop through current bundles and update if necessary
 - Save Paragraphs for new revision ID
 - Add to the end of the field any new bundles
 - This Achieves:
@@ -619,7 +619,7 @@ ___
   - Keeps any bundles that have been manually added.
 
 
-^ Didn't neccessarily need it for this project, but wanted it for future possibilities.
+^ Didn't necessarily need it for this project, but wanted it for future possibilities.
 
 ^ => How does this help with Content
 
@@ -631,7 +631,7 @@ ___
 - It can be an easier interface than Google Sheets
 - There are multiple ways to enter content (rows vs cards)
 - We can break up content onto separate sheets according to the content type or task and link them (instead of having 1 really big sheet).
-- Linked fields can autopopulate content (less copy and pasting)
+- Linked fields can auto-populate content (less copy and pasting)
 
 ^ From our content team.
 
@@ -643,7 +643,7 @@ ___
 
 - The "wall" dev team was able to easily see some real content very early on and flag issues
   - A lot of inductees had really long titles which needed to be addressed
-- We indentified issues with data entry before it became critical
+- We identified issues with data entry before it became critical
 - We were able to polish our CMS => Data => Cinder Pipeline in a timely manner
   - Not 2 hours before a deadline
 

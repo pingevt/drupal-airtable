@@ -68,10 +68,6 @@ ___
 
 ^ I am not an Airtable expert by any means...
 
-^ Not meant to be permanent.
-
-^ => Why should we care about our content development?
-
 ___
 [.build-lists: false]
 # What is Airtable?
@@ -202,18 +198,26 @@ ___
 
 ^ So we decided with this project to use Airtable for our content needs. And then it came down to me to sync that content into Drupal.
 
+^ => Some more images...
+
+___
+[.footer: ]
+![original 60%] (media/app2.png)
+
+___
+[.footer: ]
+
+![original 60%] (media/app1.png)
+
 ^ => Quick peak at our airtable
 
 ___
 
 # NAB: Airtable
 
-![left original inline 40%](media/airtable-003.png)
-![right original inline 40%](media/airtable-002.png)
+![original inline 50%](media/airtable-002.png)
 
-^ Here is just a quick glimpse at two of our tables.
-
-^ I would take a little bit of time to think about and organize organize your tables properly.
+^ Let's take a closer look at Airtable.
 
 ^ => So how do we start syncing this
 
@@ -246,7 +250,7 @@ ___
 
 ^ Overview of how we want this to work.
 
-^ => lets dive into the code.
+^ => First lets look at the APIs
 
 ___
 [.footer: ]
@@ -274,7 +278,7 @@ ___
 # How to Sync?
 ## Deep Dive: Code
 
-![original 76% inline](media/sync-cycle.png)
+![original 72% inline](media/sync-cycle-02.png)
 
 ^ Reuse this process for everything...
 
@@ -323,6 +327,7 @@ ___
 
 # How to Sync?
 ## Deep Dive: Code
+
 `syncNode()` is The method to actually sync.
 
 ``` PHP
